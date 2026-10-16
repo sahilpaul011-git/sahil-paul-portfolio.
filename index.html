@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahil Paul — Portfolio | BCA AI/ML & Web Designer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        soulBlack: '#0a0a0d',
+                        bleachOrange: '#ff3b00',
+                        bankaiCyan: '#00f0ff',
+                        spiritPurple: '#a855f7',
+                        paperWhite: '#f5f5f0',
+                        reiatsuCrimson: '#dc2626'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'retro': '4px 4px 0px #000',
+                        'retro-lg': '7px 7px 0px #000',
+                        'retro-orange': '5px 5px 0px #ff3b00',
+                        'retro-cyan': '5px 5px 0px #00f0ff',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Neo-brutalist grid background pattern */
+        body {
+            background-color: #f5f5f0;
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.07) 1px, transparent 1px);
+            background-size: 28px 28px;
+            color: #0a0a0d;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .retro-border {
+            border: 3.5px solid #0a0a0d;
+        }
+        .reiatsu-pulse {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 4px 4px 0px #ff3b00; }
+            100% { box-shadow: 8px 8px 15px rgba(255, 59, 0, 0.4); }
+        }
+    </style>
+</head>
+<body class="selection:bg-bleachOrange selection:text-white">
+
+    <!-- Custom Modal / Alert Component -->
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-soulBlack/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-paperWhite retro-border shadow-retro-lg p-6 max-w-md w-full text-center transform transition-all">
+            <div id="modal-icon" class="text-4xl mb-3">⚡</div>
+            <h3 id="modal-title" class="font-black text-2xl mb-2 font-mono uppercase">Notice</h3>
+            <p id="modal-message" class="font-mono text-sm mb-6 text-gray-800 leading-relaxed">Message content goes here.</p>
+            <button onclick="closeModal()" class="w-full bg-bleachOrange text-soulBlack font-black py-3 px-6 retro-border shadow-retro hover:bg-soulBlack hover:text-white transition-colors">
+                RELEASE REIATSU [OK]
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="home" class="sticky top-0 z-40 bg-paperWhite/95 backdrop-blur-md border-b-4 border-soulBlack px-4 sm:px-8 py-3.5 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#home" class="bg-bleachOrange text-white font-black text-lg sm:text-xl px-4 py-2 retro-border shadow-retro tracking-wider transform -rotate-1 hover:rotate-0 transition-transform flex items-center gap-2">
+            <span>⚔️</span> SAHIL PAUL // SP
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center space-x-5 font-mono text-xs font-bold uppercase tracking-wider">
+            <a href="#home" class="hover:text-bleachOrange transition-colors">[ Home ]</a>
+            <a href="#about" class="hover:text-bleachOrange transition-colors">[ About ]</a>
+            <a href="#expertise" class="hover:text-bleachOrange transition-colors">[ Skills ]</a>
+            <a href="#dbms-lab" class="hover:text-bankaiCyan transition-colors">[ SQL Console ]</a>
+            <a href="#java-lab" class="hover:text-spiritPurple transition-colors">[ Java OOPs ]</a>
+            <a href="#projects" class="hover:text-bleachOrange transition-colors">[ Projects ]</a>
+            <a href="#contact" class="bg-soulBlack text-paperWhite px-4 py-2 retro-border shadow-retro hover:bg-bleachOrange hover:text-soulBlack transition-colors">Contact</a>
+        </nav>
+
+        <!-- Mobile Drawer Menu Toggle -->
+        <button id="menu-btn" onclick="toggleMenu()" class="lg:hidden bg-bleachOrange text-soulBlack p-2.5 retro-border shadow-retro font-bold focus:outline-none flex items-center justify-center" aria-label="Toggle Navigation Menu">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-soulBlack/95 backdrop-blur-md flex flex-col justify-center items-center space-y-6 text-paperWhite font-mono text-lg font-bold hidden">
+        <button onclick="toggleMenu()" class="absolute top-6 right-6 bg-bleachOrange text-soulBlack font-black px-4 py-2 retro-border shadow-retro">✕ CLOSE</button>
+        <a href="#home" onclick="toggleMenu()" class="hover:text-bleachOrange transition-colors">&gt; 00. Home</a>
+        <a href="#about" onclick="toggleMenu()" class="hover:text-bleachOrange transition-colors">&gt; 01. About Me</a>
+        <a href="#expertise" onclick="toggleMenu()" class="hover:text-bleachOrange transition-colors">&gt; 02. Skills &amp; Stack</a>
+        <a href="#dbms-lab" onclick="toggleMenu()" class="hover:text-bankaiCyan transition-colors">&gt; 03. DBMS SQL Console</a>
+        <a href="#java-lab" onclick="toggleMenu()" class="hover:text-spiritPurple transition-colors">&gt; 04. Java OOPs Lab</a>
+        <a href="#projects" onclick="toggleMenu()" class="hover:text-bleachOrange transition-colors">&gt; 05. Projects</a>
+        <a href="#contact" onclick="toggleMenu()" class="bg-bleachOrange text-soulBlack font-black px-6 py-3 retro-border shadow-retro">&gt; 06. Contact Sahil</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="px-4 sm:px-8 py-12 sm:py-20 max-w-5xl mx-auto flex flex-col items-center text-center">
+        <!-- Status Indicator -->
+        <div class="inline-flex items-center space-x-2 bg-white px-4 py-1.5 retro-border shadow-retro mb-6 transform rotate-1">
+            <span class="w-3.5 h-3.5 rounded-full bg-green-500 animate-ping"></span>
+            <span class="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider">BANKAI STATE // ACTIVE ⚡</span>
+        </div>
+
+        <!-- Name Display -->
+        <h1 class="text-4xl sm:text-7xl font-black tracking-tight mb-4 uppercase leading-none">
+            SAHIL <span class="bg-bleachOrange text-white px-4 py-1.5 retro-border shadow-retro inline-block transform -rotate-1">PAUL</span>
+        </h1>
+
+        <!-- Education Badge -->
+        <div class="bg-soulBlack text-bankaiCyan font-mono text-xs sm:text-base px-6 py-3 retro-border shadow-retro mb-8 transform rotate-1 font-bold">
+            &gt; BCA 2nd Year (3rd Semester) | AI/ML Aspirant &amp; Web Designer_
+        </div>
+
+        <!-- Description -->
+        <p class="max-w-2xl font-sans text-base sm:text-lg text-gray-900 mb-8 leading-relaxed bg-white p-6 retro-border shadow-retro">
+            Architecting intelligent web platforms and machine learning workflows with the precision of a Soul Reaper. Deeply involved in relational database management systems, full-stack design, and Java object-oriented principles.
+        </p>
+
+        <!-- Social Media Redirect Buttons -->
+        <div class="w-full max-w-xl mb-10">
+            <p class="font-mono text-xs font-bold uppercase mb-3 text-gray-600">// CONNECT ACROSS SOUL SOCIETY</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <a href="https://www.linkedin.com/in/sahil-paul-965a3441a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="bg-blue-600 text-white font-mono text-xs font-bold py-3 px-3 retro-border shadow-retro hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://instagram.com/ig_streetop" target="_blank" rel="noopener" class="bg-pink-600 text-white font-mono text-xs font-bold py-3 px-3 retro-border shadow-retro hover:bg-pink-700 transition-colors flex items-center justify-center gap-1.5">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    Instagram
+                </a>
+                <a href="https://github.com/sahil-paul" target="_blank" rel="noopener" class="bg-soulBlack text-white font-mono text-xs font-bold py-3 px-3 retro-border shadow-retro hover:bg-gray-800 transition-colors flex items-center justify-center gap-1.5">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="mailto:streethindustani@gmail.com" class="bg-bleachOrange text-soulBlack font-mono text-xs font-black py-3 px-3 retro-border shadow-retro hover:bg-white transition-colors flex items-center justify-center gap-1.5">
+                    ✉️ Email
+                </a>
+            </div>
+        </div>
+
+        <!-- Section Navigation Shortcuts -->
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="#dbms-lab" class="bg-bankaiCyan text-soulBlack font-black px-6 py-3.5 retro-border shadow-retro hover:bg-white transition-all flex items-center gap-2">
+                <span>🗄️ Open SQL Lab</span>
+            </a>
+            <a href="#java-lab" class="bg-spiritPurple text-white font-black px-6 py-3.5 retro-border shadow-retro hover:bg-soulBlack transition-all flex items-center gap-2">
+                <span>☕ Test Java OOPs</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="px-4 sm:px-8 py-16 max-w-4xl mx-auto">
+        <div class="inline-block bg-bleachOrange text-white font-black text-xs sm:text-sm px-4 py-1.5 retro-border shadow-retro mb-4 transform -rotate-1 uppercase">
+            [ 01 — ABOUT ME ]
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black mb-6 uppercase tracking-tight">SOUL REAPER OF CODE</h2>
+        
+        <div class="bg-white p-6 sm:p-8 retro-border shadow-retro-lg space-y-4">
+            <p class="font-sans text-gray-800 leading-relaxed text-base sm:text-lg">
+                I am <strong class="bg-bleachOrange text-white px-2 py-0.5">Sahil Paul</strong>, currently in my <strong>BCA 2nd Year (3rd Semester)</strong>. My goal is to build powerful web applications, refine core software architectures, and venture deep into the realm of Artificial Intelligence and Machine Learning.
+            </p>
+            <p class="font-sans text-gray-800 leading-relaxed text-base sm:text-lg">
+                Just as a Soul Reaper unleashes Bankai through constant training and discipline, I channel that relentless work ethic into mastering relational databases (DBMS), Java object-oriented programming, and modern responsive front-end design.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3 font-mono text-xs font-bold">
+                <span class="bg-gray-100 p-2 border border-black">📍 Status: Active Student</span>
+                <span class="bg-gray-100 p-2 border border-black">📚 Degree: BCA (3rd Sem)</span>
+                <span class="bg-gray-100 p-2 border border-black">🎯 Focus: AI/ML &amp; Web Design</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERTISE SECTION -->
+    <section id="expertise" class="px-4 sm:px-8 py-16 max-w-5xl mx-auto">
+        <div class="inline-block bg-bankaiCyan text-soulBlack font-black text-xs sm:text-sm px-4 py-1.5 retro-border shadow-retro mb-4 transform rotate-1 uppercase">
+            [ 02 — SKILLS &amp; STACK ]
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black mb-8 uppercase tracking-tight">BANKAI ABILITIES</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Skill 1 -->
+            <div class="bg-white p-6 retro-border shadow-retro hover:translate-x-1 hover:translate-y-1 transition-transform">
+                <div class="text-3xl mb-3">🎨</div>
+                <h3 class="font-black text-xl mb-2 font-mono">Web Designing &amp; UI/UX</h3>
+                <p class="text-gray-700 text-sm font-sans mb-4">Building responsive, mobile-optimized interfaces with Tailwind CSS, HTML5, interactive JavaScript, and Neo-brutalist styling.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-soulBlack text-white text-xs font-mono px-2.5 py-1">Tailwind CSS</span>
+                    <span class="bg-soulBlack text-white text-xs font-mono px-2.5 py-1">HTML5 / JS</span>
+                    <span class="bg-soulBlack text-white text-xs font-mono px-2.5 py-1">Neo-Brutalism</span>
+                </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="bg-white p-6 retro-border shadow-retro hover:translate-x-1 hover:translate-y-1 transition-transform">
+                <div class="text-3xl mb-3">🤖</div>
+                <h3 class="font-black text-xl mb-2 font-mono">AI / ML Learning</h3>
+                <p class="text-gray-700 text-sm font-sans mb-4">Studying foundational machine learning concepts, data preprocessing, Python automation, and AI pipeline design.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-bleachOrange text-white font-bold text-xs font-mono px-2.5 py-1">Python</span>
+                    <span class="bg-bleachOrange text-white font-bold text-xs font-mono px-2.5 py-1">ML Fundamentals</span>
+                    <span class="bg-bleachOrange text-white font-bold text-xs font-mono px-2.5 py-1">Data Modeling</span>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="bg-white p-6 retro-border shadow-retro hover:translate-x-1 hover:translate-y-1 transition-transform">
+                <div class="text-3xl mb-3">🗄️</div>
+                <h3 class="font-black text-xl mb-2 font-mono">DBMS &amp; SQL</h3>
+                <p class="text-gray-700 text-sm font-sans mb-4">Designing relational schema, executing SQL queries, complex JOINs, subqueries, and applying 1NF to 3NF database normalization.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-bankaiCyan text-soulBlack font-bold text-xs font-mono px-2.5 py-1">MySQL / SQL</span>
+                    <span class="bg-bankaiCyan text-soulBlack font-bold text-xs font-mono px-2.5 py-1">Normalization</span>
+                    <span class="bg-bankaiCyan text-soulBlack font-bold text-xs font-mono px-2.5 py-1">ER Diagrams</span>
+                </div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="bg-white p-6 retro-border shadow-retro hover:translate-x-1 hover:translate-y-1 transition-transform">
+                <div class="text-3xl mb-3">☕</div>
+                <h3 class="font-black text-xl mb-2 font-mono">Java &amp; OOPs</h3>
+                <p class="text-gray-700 text-sm font-sans mb-4">Mastering Object-Oriented Programming pillars: Encapsulation, Inheritance, Polymorphism, and Data Abstraction in Java.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-spiritPurple text-white text-xs font-mono px-2.5 py-1">Java Core</span>
+                    <span class="bg-spiritPurple text-white text-xs font-mono px-2.5 py-1">OOP Pillars</span>
+                    <span class="bg-spiritPurple text-white text-xs font-mono px-2.5 py-1">Logic Building</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DBMS SQL LAB WIDGET -->
+    <section id="dbms-lab" class="px-4 sm:px-8 py-16 max-w-5xl mx-auto">
+        <div class="inline-block bg-bankaiCyan text-soulBlack font-black text-xs sm:text-sm px-4 py-1.5 retro-border shadow-retro mb-4 transform -rotate-1 uppercase">
+            [ 03 — DBMS &amp; SQL CONSOLE ]
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tight">INTERACTIVE SQL CONSOLE</h2>
+        <p class="font-sans text-gray-800 mb-6">Test SQL statements directly on Sahil's relational database. Click a quick query button or type your custom command!</p>
+
+        <div class="bg-soulBlack p-4 sm:p-6 retro-border shadow-retro-lg text-white font-mono">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-xs text-gray-400 self-center">Presets:</span>
+                <button onclick="runSQL('SELECT * FROM student_profile;')" class="bg-bankaiCyan text-soulBlack font-bold text-xs px-3 py-1.5 retro-border hover:bg-white transition-colors">SELECT * FROM student_profile;</button>
+                <button onclick="runSQL('SELECT * FROM academic_skills WHERE level=\'Advanced\';')" class="bg-bleachOrange text-white font-bold text-xs px-3 py-1.5 retro-border hover:bg-white hover:text-soulBlack transition-colors">SELECT * FROM academic_skills;</button>
+                <button onclick="runSQL('SELECT * FROM social_connections;')" class="bg-spiritPurple text-white font-bold text-xs px-3 py-1.5 retro-border hover:bg-white hover:text-soulBlack transition-colors">SELECT * FROM social_connections;</button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2 mb-4">
+                <input id="sql-input" type="text" value="SELECT * FROM student_profile;" class="flex-grow bg-gray-900 border-2 border-bankaiCyan text-bankaiCyan px-4 py-2.5 text-xs sm:text-sm focus:outline-none">
+                <button onclick="executeCustomSQL()" class="bg-bankaiCyan text-soulBlack font-black px-6 py-2.5 retro-border hover:bg-white transition-colors">RUN STATEMENT ⚡</button>
+            </div>
+
+            <!-- SQL Query Output Table -->
+            <div class="bg-gray-950 p-4 border border-gray-800 rounded text-xs sm:text-sm overflow-x-auto">
+                <div id="sql-status" class="text-green-400 mb-2 font-mono">&gt; Status: 1 row returned (0.01s).</div>
+                <table id="sql-results-table" class="w-full text-left border-collapse">
+                    <thead id="sql-thead">
+                        <tr class="border-b border-gray-800 text-bankaiCyan">
+                            <th class="p-2">STUDENT_NAME</th>
+                            <th class="p-2">DEGREE</th>
+                            <th class="p-2">SEMESTER</th>
+                            <th class="p-2">EMAIL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sql-tbody" class="text-gray-300">
+                        <tr class="border-b border-gray-900">
+                            <td class="p-2 text-white font-bold">Sahil Paul</td>
+                            <td class="p-2">BCA</td>
+                            <td class="p-2">3rd Sem (2nd Year)</td>
+                            <td class="p-2">streethindustani@gmail.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- JAVA OOPS SIMULATOR SECTION -->
+    <section id="java-lab" class="px-4 sm:px-8 py-16 max-w-5xl mx-auto">
+        <div class="inline-block bg-spiritPurple text-white font-black text-xs sm:text-sm px-4 py-1.5 retro-border shadow-retro mb-4 transform -rotate-1 uppercase">
+            [ 04 — JAVA OOPS SIMULATOR ]
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tight">OBJECT-ORIENTED LAB</h2>
+        <p class="font-sans text-gray-800 mb-6">Select a core Java OOP pillar below to simulate compiler output in real-time.</p>
+
+        <div class="bg-white p-6 sm:p-8 retro-border shadow-retro-lg">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 font-mono">
+                <button onclick="runJavaOOP('encapsulation')" class="bg-paperWhite retro-border p-4 text-left hover:bg-spiritPurple hover:text-white transition-colors group">
+                    <div class="font-black text-base mb-1 group-hover:text-white">1. Encapsulation</div>
+                    <p class="text-xs text-gray-600 group-hover:text-gray-200">Private state with getter/setter access.</p>
+                </button>
+                <button onclick="runJavaOOP('inheritance')" class="bg-paperWhite retro-border p-4 text-left hover:bg-spiritPurple hover:text-white transition-colors group">
+                    <div class="font-black text-base mb-1 group-hover:text-white">2. Inheritance</div>
+                    <p class="text-xs text-gray-600 group-hover:text-gray-200">Extending classes &amp; code reuse.</p>
+                </button>
+                <button onclick="runJavaOOP('polymorphism')" class="bg-paperWhite retro-border p-4 text-left hover:bg-spiritPurple hover:text-white transition-colors group">
+                    <div class="font-black text-base mb-1 group-hover:text-white">3. Polymorphism</div>
+                    <p class="text-xs text-gray-600 group-hover:text-gray-200">Method overriding at runtime.</p>
+                </button>
+            </div>
+
+            <!-- Virtual Console -->
+            <div class="bg-soulBlack text-bankaiCyan font-mono p-4 rounded retro-border text-xs sm:text-sm">
+                <div class="text-gray-400 mb-2 border-b border-gray-800 pb-1 flex justify-between">
+                    <span>☕ JVM Console Execution</span>
+                    <span class="text-green-400">Ready</span>
+                </div>
+                <pre id="java-console" class="overflow-x-auto whitespace-pre-wrap text-bankaiCyan">
+public class SahilMain {
+    public static void main(String[] args) {
+        System.out.println("Select a Java OOP concept above to run execution...");
+    }
+}
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="px-4 sm:px-8 py-16 max-w-5xl mx-auto">
+        <div class="inline-block bg-bleachOrange text-white font-black text-xs sm:text-sm px-4 py-1.5 retro-border shadow-retro mb-4 transform rotate-1 uppercase">
+            [ 05 — FEATURED PROJECTS ]
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black mb-8 uppercase tracking-tight">WHAT I BUILT</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1 -->
+            <div class="bg-white retro-border shadow-retro-lg flex flex-col justify-between">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-bankaiCyan text-soulBlack font-bold font-mono text-xs px-3 py-1 retro-border">AI &amp; Web Design</span>
+                        <span class="font-mono text-xs text-gray-500">2026</span>
+                    </div>
+                    <h3 class="font-black text-2xl mb-2 font-mono">SoulReaper AI Dashboard</h3>
+                    <p class="text-gray-700 font-sans text-sm mb-4">An interactive web portal linking machine learning pipelines with real-time UI dashboards and database query analytics.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-100 text-xs font-mono px-2 py-1 border border-black">Python</span>
+                        <span class="bg-gray-100 text-xs font-mono px-2 py-1 border border-black">Tailwind</span>
+                        <span class="bg-gray-100 text-xs font-mono px-2 py-1 border border-black">MySQL</span>
+                    </div>
+                </div>
+                <div class="border-t-3 border-black p-4 bg-paperWhite flex justify-between items-center">
+                    <a href="https://github.com/sahil-paul" target="_blank" rel="noopener" class="font-bold text-sm hover:text-bleachOrange font-mono">GitHub Repo ↗</a>
+                    <button onclick="showModal('SoulReaper AI Dashboard', 'Integrates Python algorithms with a full-stack DBMS logging framework.', '🚀')" class="bg-soulBlack text-white font-bold text-xs px-4 py-2 retro-border hover:bg-bleachOrange transition-colors font-mono">Details</button>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="bg-white retro-border shadow-retro-lg flex flex-col justify-between">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-bleachOrange text-white font-bold font-mono text-xs px-3 py-1 retro-border">Java &amp; DBMS</span>
+                        <span class="font-mono text-xs text-gray-500">2026</span>
+                    </div>
+                    <h3 class="font-black text-2xl mb-2 font-mono">BCA Academic DBMS Portal</h3>
+                    <p class="text-gray-700 font-sans text-sm mb-4">A student management portal enforcing 3NF relational normalization and Java Object-Oriented backend operations.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-100 text-xs font-mono px-2 py-1 border border-black">Java</span>
+                        <span class="bg-gray-100 text-xs font-mono px-2 py-1 border border-black">SQL</span>
+                        <span class="bg-gray-100 text-xs font-mono px-2 py-1 border border-black">Relational DB</span>
+                    </div>
+                </div>
+                <div class="border-t-3 border-black p-4 bg-paperWhite flex justify-between items-center">
+                    <a href="https://github.com/sahil-paul" target="_blank" rel="noopener" class="font-bold text-sm hover:text-bleachOrange font-mono">GitHub Repo ↗</a>
+                    <button onclick="showModal('BCA Academic DBMS Portal', 'Built following normalized schema standards and OOP architecture.', '🗄️')" class="bg-soulBlack text-white font-bold text-xs px-4 py-2 retro-border hover:bg-bleachOrange transition-colors font-mono">Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="px-4 sm:px-8 py-16 max-w-3xl mx-auto">
+        <div class="inline-block bg-soulBlack text-paperWhite font-black text-xs sm:text-sm px-4 py-1.5 retro-border shadow-retro mb-4 transform -rotate-1 uppercase">
+            [ 06 — CONTACT SAHIL ]
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black mb-6 uppercase tracking-tight">LET'S CONNECT</h2>
+
+        <!-- Quick Social Redirect Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 font-mono">
+            <a href="https://www.linkedin.com/in/sahil-paul-965a3441a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="bg-white p-4 retro-border shadow-retro hover:bg-blue-50 hover:border-blue-600 transition-colors block text-center">
+                <div class="font-black text-lg text-blue-600">LinkedIn</div>
+                <div class="text-xs text-gray-600 truncate">@sahil-paul</div>
+            </a>
+            <a href="https://instagram.com/ig_streetop" target="_blank" rel="noopener" class="bg-white p-4 retro-border shadow-retro hover:bg-pink-50 hover:border-pink-600 transition-colors block text-center">
+                <div class="font-black text-lg text-pink-600">Instagram</div>
+                <div class="text-xs text-gray-600 truncate">@ig_streetop</div>
+            </a>
+            <a href="mailto:streethindustani@gmail.com" class="bg-white p-4 retro-border shadow-retro hover:bg-orange-50 hover:border-bleachOrange transition-colors block text-center">
+                <div class="font-black text-lg text-bleachOrange">Email</div>
+                <div class="text-xs text-gray-600 truncate">streethindustani@...</div>
+            </a>
+        </div>
+
+        <!-- Contact Form -->
+        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="bg-white p-6 sm:p-8 retro-border shadow-retro-lg space-y-4">
+            <div>
+                <label class="block font-bold text-xs font-mono mb-2">YOUR NAME</label>
+                <input type="text" id="contact-name" required placeholder="Ichigo Kurosaki" class="w-full bg-paperWhite border-3 border-soulBlack px-4 py-3 font-mono text-sm focus:outline-none focus:bg-white">
+            </div>
+            <div>
+                <label class="block font-bold text-xs font-mono mb-2">YOUR EMAIL</label>
+                <input type="email" id="contact-email" required placeholder="ichigo@soul-society.com" class="w-full bg-paperWhite border-3 border-soulBlack px-4 py-3 font-mono text-sm focus:outline-none focus:bg-white">
+            </div>
+            <div>
+                <label class="block font-bold text-xs font-mono mb-2">MESSAGE</label>
+                <textarea id="contact-msg" rows="4" required placeholder="Let's build web apps or discuss AI/ML..." class="w-full bg-paperWhite border-3 border-soulBlack px-4 py-3 font-mono text-sm focus:outline-none focus:bg-white"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-bleachOrange text-white font-black py-4 px-6 text-base retro-border shadow-retro hover:bg-soulBlack transition-colors font-mono">
+                SEND MESSAGE 🚀
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-soulBlack text-paperWhite py-10 px-4 sm:px-8 border-t-4 border-black text-center font-mono">
+        <div class="max-w-4xl mx-auto space-y-3">
+            <p class="font-black text-lg text-bankaiCyan tracking-wide">SAHIL PAUL // BCA 2ND YEAR (3RD SEMESTER)</p>
+            <div class="flex justify-center space-x-4 text-xs">
+                <a href="https://www.linkedin.com/in/sahil-paul-965a3441a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="underline hover:text-bleachOrange">LinkedIn</a>
+                <span>•</span>
+                <a href="https://instagram.com/ig_streetop" target="_blank" rel="noopener" class="underline hover:text-bleachOrange">Instagram</a>
+                <span>•</span>
+                <a href="https://github.com/sahil-paul" target="_blank" rel="noopener" class="underline hover:text-bleachOrange">GitHub</a>
+                <span>•</span>
+                <a href="mailto:streethindustani@gmail.com" class="underline hover:text-bleachOrange">streethindustani@gmail.com</a>
+            </div>
+            <p class="text-xs text-gray-500">&copy; 2026 Sahil Paul. Built with Bleach Bankai Energy.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        // Mobile Navigation Drawer Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Custom Modal Functionality
+        function showModal(title, message, icon = '⚡') {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('modal-icon').innerText = icon;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // DBMS SQL Lab Simulator Logic
+        function runSQL(query) {
+            document.getElementById('sql-input').value = query;
+            const tbody = document.getElementById('sql-tbody');
+            const thead = document.getElementById('sql-thead');
+            const status = document.getElementById('sql-status');
+
+            if (query.includes('student_profile')) {
+                status.innerText = "> Status: 1 row returned (0.01s).";
+                thead.innerHTML = `
+                    <tr class="border-b border-gray-800 text-bankaiCyan">
+                        <th class="p-2">STUDENT_NAME</th>
+                        <th class="p-2">DEGREE</th>
+                        <th class="p-2">SEMESTER</th>
+                        <th class="p-2">EMAIL</th>
+                    </tr>`;
+                tbody.innerHTML = `
+                    <tr class="border-b border-gray-900">
+                        <td class="p-2 text-white font-bold">Sahil Paul</td>
+                        <td class="p-2">BCA</td>
+                        <td class="p-2">3rd Sem (2nd Year)</td>
+                        <td class="p-2">streethindustani@gmail.com</td>
+                    </tr>`;
+            } else if (query.includes('academic_skills')) {
+                status.innerText = "> Status: 4 rows returned (0.012s).";
+                thead.innerHTML = `
+                    <tr class="border-b border-gray-800 text-bankaiCyan">
+                        <th class="p-2">SKILL</th>
+                        <th class="p-2">CATEGORY</th>
+                        <th class="p-2">STATUS</th>
+                    </tr>`;
+                tbody.innerHTML = `
+                    <tr class="border-b border-gray-900"><td class="p-2 text-white">Web Designing</td><td class="p-2">UI/UX & Frontend</td><td class="p-2 text-green-400">Advanced</td></tr>
+                    <tr class="border-b border-gray-900"><td class="p-2 text-white">DBMS & SQL</td><td class="p-2">Database Architecture</td><td class="p-2 text-green-400">Advanced</td></tr>
+                    <tr class="border-b border-gray-900"><td class="p-2 text-white">Java OOPs</td><td class="p-2">Core Programming</td><td class="p-2 text-green-400">Advanced</td></tr>
+                    <tr><td class="p-2 text-white">AI / ML</td><td class="p-2">Data & Models</td><td class="p-2 text-yellow-400">Learning</td></tr>`;
+            } else if (query.includes('social_connections')) {
+                status.innerText = "> Status: 3 rows returned (0.009s).";
+                thead.innerHTML = `
+                    <tr class="border-b border-gray-800 text-bankaiCyan">
+                        <th class="p-2">PLATFORM</th>
+                        <th class="p-2">HANDLE / LINK</th>
+                        <th class="p-2">ACTION</th>
+                    </tr>`;
+                tbody.innerHTML = `
+                    <tr class="border-b border-gray-900"><td class="p-2 text-white">LinkedIn</td><td class="p-2">sahil-paul</td><td class="p-2"><a href="https://www.linkedin.com/in/sahil-paul-965a3441a" target="_blank" class="text-bankaiCyan underline">Open</a></td></tr>
+                    <tr class="border-b border-gray-900"><td class="p-2 text-white">Instagram</td><td class="p-2">@ig_streetop</td><td class="p-2"><a href="https://instagram.com/ig_streetop" target="_blank" class="text-bankaiCyan underline">Open</a></td></tr>
+                    <tr><td class="p-2 text-white">Email</td><td class="p-2">streethindustani@gmail.com</td><td class="p-2"><a href="mailto:streethindustani@gmail.com" class="text-bankaiCyan underline">Mail</a></td></tr>`;
+            } else {
+                status.innerText = "> Custom Query Processed Successfully.";
+                thead.innerHTML = `<tr class="border-b border-gray-800 text-bankaiCyan"><th class="p-2">QUERY_RESULT</th></tr>`;
+                tbody.innerHTML = `<tr><td class="p-2 text-green-400">Statement executed without errors on Sahil's DB instance.</td></tr>`;
+            }
+        }
+
+        function executeCustomSQL() {
+            const query = document.getElementById('sql-input').value;
+            runSQL(query);
+        }
+
+        // Java OOPs Console Logic
+        function runJavaOOP(pillar) {
+            const consoleBox = document.getElementById('java-console');
+            if (pillar === 'encapsulation') {
+                consoleBox.innerText = `// Encapsulation Principle in Java
+public class SahilProfile {
+    private String email = "streethindustani@gmail.com";
+    private String instagram = "@ig_streetop";
+
+    public String getContactInfo() {
+        return "Email: " + email + " | Insta: " + instagram;
+    }
+}
+// OUTPUT:
+[JVM] Security Checks Passed.
+[SUCCESS] Contact: Email: streethindustani@gmail.com | Insta: @ig_streetop`;
+            } else if (pillar === 'inheritance') {
+                consoleBox.innerText = `// Inheritance Principle in Java
+class Student { String degree = "BCA 3rd Semester"; }
+class AIStudent extends Student {
+    String focus = "AI / ML Learning";
+}
+// OUTPUT:
+[JVM] AIStudent object created extending Student.
+[SUCCESS] Degree: BCA 3rd Semester | Focus: AI / ML Learning`;
+            } else if (pillar === 'polymorphism') {
+                consoleBox.innerText = `// Polymorphism Principle in Java
+class Developer {
+    void execute() { System.out.println("Building application..."); }
+}
+class WebDesigner extends Developer {
+    @Override
+    void execute() { System.out.println("Sahil designing Bleach Neo-brutalist website!"); }
+}
+// OUTPUT:
+[JVM] Dynamic Method Dispatch:
+Sahil designing Bleach Neo-brutalist website!`;
+            }
+        }
+
+        // Contact Form Submission
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const message = document.getElementById('contact-msg').value.trim();
+            const subject = encodeURIComponent(`Portfolio message from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            window.location.href = `mailto:streethindustani@gmail.com?subject=${subject}&body=${body}`;
+            showModal('Email App Opening', 'Your email app should open with your message filled in. Please press Send there to deliver it.', '📬');
+        }
+    </script>
+</body>
+</html>
